@@ -24,7 +24,7 @@ function query($query)
 // Membuat fungsi tambah
 function tambah($data)
 {
-     global $koneksi;
+    global $koneksi;
 
     $nim = htmlspecialchars($data['nim']);
     $nama = htmlspecialchars($data['nama']);
@@ -32,13 +32,23 @@ function tambah($data)
     $jurusan = htmlspecialchars($data['jurusan']);
     $semester = htmlspecialchars($data['semester']);
 
-    // Memasukkan data ke tabel mahasiswa
-    $sql_mahasiswa = "INSERT INTO mahasiswa(nim, nama, kelas, jurusan, semester) VALUES ('$nim','$nama','$kelas','$jurusan','$semester')";
-    mysqli_query($koneksi, $sql_mahasiswa);
+    // Mengecek apakah NIM sudah ada di dalam tabel
+    $query_cek_nim = "SELECT * FROM mahasiswa WHERE nim = '$nim'";
+    $result = mysqli_query($koneksi, $query_cek_nim);
 
-    // Mengembalikan jumlah baris yang terpengaruh oleh operasi query (0 jika tidak ada baris yang terpengaruh)
-    return mysqli_affected_rows($koneksi);
+    // Jika NIM sudah ada, kembalikan 0
+    if (mysqli_num_rows($result) > 0) {
+        return 0;
+    } else {
+        // Jika NIM belum ada, masukkan data ke dalam tabel
+        $sql_mahasiswa = "INSERT INTO mahasiswa(nim, nama, kelas, jurusan, semester) VALUES ('$nim','$nama','$kelas','$jurusan','$semester')";
+        mysqli_query($koneksi, $sql_mahasiswa);
+
+        // Mengembalikan jumlah baris yang terpengaruh oleh operasi query (1 jika berhasil, 0 jika gagal)
+        return mysqli_affected_rows($koneksi);
+    }
 }
+
 
 
 // Membuat fungsi hapus

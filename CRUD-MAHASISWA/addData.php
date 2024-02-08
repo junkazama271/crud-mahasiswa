@@ -77,7 +77,7 @@ if (isset($_POST['simpan'])) {
     <div class="container">
         <div class="row my-2">
             <div class="col-md">
-                <h3 class="fw-bold text-uppercase"><i class="bi bi-person-plus-fill"></i>&nbsp;Tambah Data Mahasiswa FTI</h3>
+                <h3 class="fw-bold text-uppercase"><i class="bi bi-person-plus-fill"></i>&nbsp;Tambah Data Mahasiswa UHM</h3>
             </div>
             <hr>
         </div>
